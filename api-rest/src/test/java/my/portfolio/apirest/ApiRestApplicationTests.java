@@ -1,4 +1,4 @@
-package my.portfolio.apirest.apirest;
+package my.portfolio.apirest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
