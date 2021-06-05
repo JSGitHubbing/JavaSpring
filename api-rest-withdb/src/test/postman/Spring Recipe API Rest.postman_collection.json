@@ -6,98 +6,298 @@
 	},
 	"item": [
 		{
-			"name": "Get Example Message",
-			"event": [
+			"name": "Message",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Receive the exmaple message\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.content).to.eql(\"This is the Example Message\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/message",
-					"protocol": "http",
-					"host": [
-						"localhost"
+					"name": "Get Example Message",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Receive the exmaple message\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.content).to.eql(\"This is the Example Message\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "8080",
-					"path": [
-						"message"
-					]
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/message",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Receive the exmaple message\", function () {\r",
+									"    var content = pm.request.body.toJSON().raw;\r",
+									"    var jsonContent = JSON.parse(content);\r",
+									"    console.log(jsonContent);\r",
+									"\r",
+									"    var responseContent = pm.response.json().content;\r",
+									"\r",
+									"    pm.expect(responseContent).to.eql(\"The message [\"+jsonContent.content+\"] was received correctly.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"Mi mensajito\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/message",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"message"
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "mi mensaje",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "New Request",
+			"name": "Recipes",
+			"item": [
+				{
+					"name": "Get All Recipes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.variables.set(\"recipenumber\", jsonData.length)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/recipe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"recipe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Recipe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.variables.set(\"createdrecipeid\", jsonData = pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"Bocata del almuerzo\",\r\n        \"ingredients\": [\r\n            {\r\n                \"quantity\": 1,\r\n                \"name\": \"Bocata de la máma\",\r\n                \"magnitude\": \"Unidad\"\r\n            }\r\n        ],\r\n        \"steps\": [\r\n            {\r\n                \"title\": \"Desempaquetar\",\r\n                \"description\": \"Asegúrese de desenvolver el bocadillo\"\r\n            },\r\n            {\r\n                \"title\": \"Comer\",\r\n                \"description\": \"Devora el bocata que te han preparado esta mañana\"\r\n            }\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/recipe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"recipe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Recipe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check if the entity has been updated\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var currentId = pm.variables.get(\"createdrecipeid\");\r",
+									"    pm.expect(jsonData.id).to.eql(currentId);\r",
+									"    pm.expect(jsonData.name).to.eql(\"Bocata del almuerzo actualizado\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": {{createdrecipeid}},\r\n        \"name\": \"Bocata del almuerzo actualizado\",\r\n        \"ingredients\": [\r\n            {\r\n                \"quantity\": 2,\r\n                \"name\": \"Bocata de la máma\",\r\n                \"magnitude\": \"Unidad\"\r\n            }\r\n        ],\r\n        \"steps\": [\r\n            {\r\n                \"title\": \"Desempaquetar\",\r\n                \"description\": \"Asegúrese de desenvolver el bocadillo del papel de plata\"\r\n            },\r\n            {\r\n                \"title\": \"Comer\",\r\n                \"description\": \"Devora el bocata que te han preparado esta mañana\"\r\n            }\r\n        ]\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/recipe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"recipe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Recipe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/recipe/{{createdrecipeid}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"recipe",
+								"{{createdrecipeid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Recipes After Work",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The database should remain as it was\", function () {\r",
+									"    var initialNumber = pm.variables.get(\"recipenumber\");\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(initialNumber).to.eql(jsonData.length);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/recipe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"recipe"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
 				{
 					"listen": "test",
 					"script": {
+						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Receive the exmaple message\", function () {\r",
-							"    var content = pm.request.body.toJSON().raw;\r",
-							"    var jsonContent = JSON.parse(content);\r",
-							"    console.log(jsonContent);\r",
-							"\r",
-							"    var responseContent = pm.response.json().content;\r",
-							"\r",
-							"    pm.expect(responseContent).to.eql(\"The message [\"+jsonContent.content+\"] was received correctly.\");\r",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
 							"});"
-						],
-						"type": "text/javascript"
+						]
 					}
 				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"content\":\"Mi mensajito\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/message",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"message"
-					],
-					"query": [
-						{
-							"key": "content",
-							"value": "mi mensaje",
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	]
 }

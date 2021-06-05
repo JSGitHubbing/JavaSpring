@@ -1,11 +1,17 @@
 package my.portfolio.apirestwithdb.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Recipe {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     String name;
+    @OneToMany(cascade = CascadeType.ALL)
     List<Ingredient> ingredients;
+    @OneToMany(cascade = CascadeType.ALL)
     List<PreparationStep> steps;
 
     public int getId() {

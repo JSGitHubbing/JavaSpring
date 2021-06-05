@@ -1,7 +1,12 @@
 package my.portfolio.apirestwithdb.model;
 
-public class PreparationStep {
+import javax.persistence.*;
 
+@Entity
+public class PreparationStep {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
     String title;
     String description;
 

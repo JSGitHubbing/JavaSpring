@@ -1,12 +1,7 @@
 package my.portfolio.apirestwithdb.service;
 
 import my.portfolio.apirestwithdb.model.Recipe;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-
-public interface RecipeService {
-    List<Recipe> findAll();
-    Recipe findById(int id);
-    Recipe update(Recipe updatedRecipe);
-    Recipe delete(int id);
+public interface RecipeService extends CrudRepository<Recipe, Integer> {
 }
