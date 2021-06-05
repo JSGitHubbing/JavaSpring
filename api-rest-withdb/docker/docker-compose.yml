@@ -1,0 +1,22 @@
+version: '2'
+services:
+  database:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadbvolume:/var/lib/mysql
+    environment:
+      - "MYSQL_ROOT_PASSWORD=password12345"
+    networks:
+      miredlocal:
+        ipv4_address: 10.6.0.2
+volumes:
+  mariadbvolume:
+networks:
+  miredlocal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.6.0.0/16
+          gateway: 10.6.0.1
