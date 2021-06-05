@@ -1,8 +1,8 @@
-package my.portfolio.apirest.repository;
+package my.portfolio.apirestwithdb.repository;
 
-import my.portfolio.apirest.model.Ingredient;
-import my.portfolio.apirest.model.PreparationStep;
-import my.portfolio.apirest.model.Recipe;
+import my.portfolio.apirestwithdb.model.Ingredient;
+import my.portfolio.apirestwithdb.model.PreparationStep;
+import my.portfolio.apirestwithdb.model.Recipe;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

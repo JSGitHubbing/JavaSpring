@@ -1,4 +1,4 @@
-package my.portfolio.apirest.model;
+package my.portfolio.apirestwithdb.model;
 
 public class Ingredient {
 

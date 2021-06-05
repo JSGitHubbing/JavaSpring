@@ -1,7 +1,7 @@
-package my.portfolio.apirest.service;
+package my.portfolio.apirestwithdb.service;
 
-import my.portfolio.apirest.model.Recipe;
-import my.portfolio.apirest.repository.RecipeRepository;
+import my.portfolio.apirestwithdb.model.Recipe;
+import my.portfolio.apirestwithdb.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

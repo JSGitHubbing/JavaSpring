@@ -1,6 +1,6 @@
-package my.portfolio.apirest.controller;
+package my.portfolio.apirestwithdb.controller;
 
-import my.portfolio.apirest.model.ExampleMessage;
+import my.portfolio.apirestwithdb.model.ExampleMessage;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

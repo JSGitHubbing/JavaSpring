@@ -1,6 +1,6 @@
-package my.portfolio.apirest.service;
+package my.portfolio.apirestwithdb.service;
 
-import my.portfolio.apirest.model.Recipe;
+import my.portfolio.apirestwithdb.model.Recipe;
 
 import java.util.List;
 

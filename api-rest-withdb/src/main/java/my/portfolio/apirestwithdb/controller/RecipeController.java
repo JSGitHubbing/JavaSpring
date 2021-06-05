@@ -1,7 +1,7 @@
-package my.portfolio.apirest.controller;
+package my.portfolio.apirestwithdb.controller;
 
-import my.portfolio.apirest.model.Recipe;
-import my.portfolio.apirest.service.RecipeService;
+import my.portfolio.apirestwithdb.model.Recipe;
+import my.portfolio.apirestwithdb.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
