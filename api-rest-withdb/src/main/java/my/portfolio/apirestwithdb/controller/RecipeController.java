@@ -5,6 +5,8 @@ import my.portfolio.apirestwithdb.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 public class RecipeController {
 
@@ -29,6 +31,16 @@ public class RecipeController {
     @DeleteMapping("/recipe/{id}")
     void delete(@PathVariable Integer id) {
         recipeService.deleteById(id);
+    }
+
+    @GetMapping("/recipe/{id}")
+    Optional<Recipe> findById(@PathVariable Integer id) {
+        return recipeService.findById(id);
+    }
+
+    @GetMapping("/recipe/search")
+    Iterable<Recipe> findByName(@RequestParam("recipeName") String recipeName) {
+        return recipeService.findByName(recipeName);
     }
 
 }

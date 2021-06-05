@@ -1,5 +1,7 @@
 package my.portfolio.apirestwithdb.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
+    @JsonProperty("recipe-name")
     String name;
     @OneToMany(cascade = CascadeType.ALL)
     List<Ingredient> ingredients;
