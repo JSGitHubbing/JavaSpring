@@ -3,8 +3,11 @@ package my.portfolio.apirestwithdb.controllers;
 import my.portfolio.apirestwithdb.model.Recipe;
 import my.portfolio.apirestwithdb.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -14,7 +17,7 @@ public class RecipeController {
     RecipeService recipeService;
 
     @PostMapping("/recipe")
-    Recipe create(@RequestBody Recipe recipe) {
+    Recipe create(@Valid @RequestBody Recipe recipe) {
         return recipeService.save(recipe);
     }
 
@@ -24,8 +27,12 @@ public class RecipeController {
     }
 
     @PutMapping("/recipe")
-    Recipe update(@RequestBody Recipe recipe) {
-        return recipeService.save(recipe);
+    ResponseEntity<Recipe> update(@RequestBody Recipe recipe) {
+        if (recipeService.findById(recipe.getId()).isPresent()) {
+            return new ResponseEntity(recipeService.save(recipe), HttpStatus.OK);
+        } else {
+            return new ResponseEntity(recipe, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/recipe/{id}")
