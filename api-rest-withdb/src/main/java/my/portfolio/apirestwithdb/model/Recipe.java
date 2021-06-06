@@ -3,6 +3,9 @@ package my.portfolio.apirestwithdb.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,11 +13,17 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
+
     @JsonProperty("recipe-name")
+    @NotNull
     String name;
+
     @OneToMany(cascade = CascadeType.ALL)
+    @NotEmpty
     List<Ingredient> ingredients;
+
     @OneToMany(cascade = CascadeType.ALL)
+    @NotEmpty
     List<PreparationStep> steps;
 
     public int getId() {
