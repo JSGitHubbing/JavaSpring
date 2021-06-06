@@ -1,6 +1,6 @@
 package my.portfolio.apirestwithdb;
 
-import my.portfolio.apirestwithdb.controller.RecipeController;
+import my.portfolio.apirestwithdb.controllers.RecipeController;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
