@@ -1,4 +1,4 @@
-package my.portfolio.apirestwithdb.controllers;
+package my.portfolio.apirestwithdb.controller;
 
 import my.portfolio.apirestwithdb.model.Recipe;
 import my.portfolio.apirestwithdb.service.RecipeService;

@@ -26,16 +26,6 @@ public class Recipe {
     @NotEmpty
     List<PreparationStep> steps;
 
-    public Recipe() {
-    }
-
-    public Recipe(int id, String name, List<Ingredient> ingredients, List<PreparationStep> steps) {
-        this.id = id;
-        this.name = name;
-        this.ingredients = ingredients;
-        this.steps = steps;
-    }
-
     public int getId() {
         return id;
     }
